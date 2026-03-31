@@ -14,7 +14,7 @@ All endpoints require `Authorization: Bearer $TOKEN`. Get token: `TOKEN=$(jq -r 
 ```bash
 curl -s -X POST https://plop.so/api/auth/device/code \
   -H "Content-Type: application/json" \
-  -d '{"scope":"openid"}'
+  -d '{"client_id":"plop-cli","scope":"openid"}'
 ```
 
 Response has `verification_uri_complete`, `user_code`, `device_code`, and `interval`.
@@ -24,7 +24,7 @@ Response has `verification_uri_complete`, `user_code`, `device_code`, and `inter
 ```bash
 curl -s -X POST https://plop.so/api/auth/device/token \
   -H "Content-Type: application/json" \
-  -d '{"grant_type":"urn:ietf:params:oauth:grant-type:device_code","device_code":"DEVICE_CODE"}'
+  -d '{"client_id":"plop-cli","grant_type":"urn:ietf:params:oauth:grant-type:device_code","device_code":"DEVICE_CODE"}'
 ```
 
 Poll every `interval` seconds until response has `access_token` or `token`. Save to `~/.plop/config.json` as `{"access_token":"...","expires_at":...}`.
